@@ -85,7 +85,9 @@ FixAdapt::FixAdapt(LAMMPS *lmp, int narg, char **arg) : Fix(lmp, narg, arg)
   if (nevery < 0) error->all(FLERR,"Illegal fix adapt command");
 
   // count # of adaptations
-
+   //Schimanek: Added for debugging	
+   #include <stdio.h>
+   printf("Fix adapt wird gerufen");
   nadapt = 0;
 
   int iarg = 4;
@@ -190,7 +192,10 @@ FixAdapt::FixAdapt(LAMMPS *lmp, int narg, char **arg) : Fix(lmp, narg, arg)
   }
 
   // allocate pair style arrays
-
+ //Schimanek: Added for debugging	
+   #include <stdio.h>
+   printf("Allocate pair style arrays");
+	
   int n = atom->ntypes;
   for (int m = 0; m < nadapt; m++)
     if (adapt[m].which == PAIR)
@@ -249,7 +254,10 @@ void FixAdapt::pre_delete(bool unfixflag)
 /* ---------------------------------------------------------------------- */
 
 int FixAdapt::setmask()
-{
+{ 
+	//Schimanek: Added for debugging	
+   #include <stdio.h>
+   printf("setmask()");
   int mask = 0;
   mask |= PRE_FORCE;
   mask |= POST_RUN;
@@ -260,6 +268,9 @@ int FixAdapt::setmask()
 
 void FixAdapt::init()
 {
+	//Schimanek: Added for debugging	
+   #include <stdio.h>
+   printf("init()");
   int i,j;
 
   // setup and error checks
@@ -412,8 +423,10 @@ void FixAdapt::change_settings()
         int nlocal = atom->nlocal;
 
         if (mflag == 0) {
+		//Schimanek: Added for debugging
+	  #include <stdio.h>
 	  printf("mflag=0");
-          for (i = 0; i < nlocal; i++)
+	  for (i = 0; i < nlocal; i++)
             if (mask[i] & groupbit)
             {
               if (is_atomstyle) value = fppat->vector_atom[i];  
@@ -421,6 +434,8 @@ void FixAdapt::change_settings()
               radius[i] = 0.5*value;
             }
         } else {
+		//Schimanek: Added for debugging
+	  #include <stdio.h>	
 	  printf("mflag ungleich 0");
           for (i = 0; i < nlocal; i++)
             if (mask[i] & groupbit) {
