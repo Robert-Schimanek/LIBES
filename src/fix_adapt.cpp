@@ -440,11 +440,20 @@ void FixAdapt::change_settings()
           for (i = 0; i < nlocal; i++)
             if (mask[i] & groupbit) {
               if (is_atomstyle) value = fppat->vector_atom[i];  
+	      //Schimanek: Added for debugging
+	  #include <stdio.h>
+		    printf("Dichte wird ermittelt");    
               density = rmass[i] / (4.0*MY_PI/3.0 *
                                     radius[i]*radius[i]*radius[i]);
               if (scaleflag) value *= radius[i]*2.0;
+	     //Schimanek: Added for debugging
+	  #include <stdio.h>
+		    printf("Radius wird geschrieben");    
+                  
               radius[i] = 0.5*value;
-              
+              //Schimanek: Added for debugging
+	  #include <stdio.h>
+		    printf("Masse wird geschrieben");
 	      rmass[i] = 4.0*MY_PI/3.0 *
                 radius[i]*radius[i]*radius[i] * density;
             }
