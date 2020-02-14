@@ -194,51 +194,80 @@ void BondGran::compute(int eflag, int vflag)
     i1 = bondlist[n][0]; // Sphere 1
     i2 = bondlist[n][1]; // Sphere 2
 
-    //2nd check if bond overlap the box-borders
-    if (x[i1][0]<(domain->boxlo[0]+cutoff)) {
-      bondlist[n][3]=1;
-      continue;
-    } else if (x[i1][0]>(domain->boxhi[0]-cutoff)) {
-      bondlist[n][3]=1;
-      continue;
-    } else if (x[i1][1]<(domain->boxlo[1]+cutoff)) {
-      bondlist[n][3]=1;
-      continue;
-    } else if (x[i1][1]>(domain->boxhi[1]-cutoff)) {
-      bondlist[n][3]=1;
-      continue;
-    } else if (x[i1][2]<(domain->boxlo[2]+cutoff)) {
-      bondlist[n][3]=1;
-      continue;
-    } else if (x[i1][2]>(domain->boxhi[2]-cutoff)) {
-      bondlist[n][3]=1;
-      continue;
-    }
+	//check if bond overlap the box-borders and if box is periodic
+ 	//Schimanek
 
-    if (x[i2][0]<(domain->boxlo[0]+cutoff)) {
-      bondlist[n][3]=1;
-      continue;
-    } else if (x[i2][0]>(domain->boxhi[0]-cutoff)) {
-      bondlist[n][3]=1;
-      continue;
-    } else if (x[i2][1]<(domain->boxlo[1]+cutoff)) {
-      bondlist[n][3]=1;
-      continue;
-    } else if (x[i2][1]>(domain->boxhi[1]-cutoff)) {
-      bondlist[n][3]=1;
-      continue;
-    } else if (x[i2][2]<(domain->boxlo[2]+cutoff)) {
-      bondlist[n][3]=1;
-      continue;
-    } else if (x[i2][2]>(domain->boxhi[2]-cutoff)) {
-      bondlist[n][3]=1;
-      continue;
-    }
+	if ( x[i1][0] < (domain->boxlo[0]+cutoff) && (domain->xperiodic == 0)) {
+	bondlist[n][3] = 1;
+	//#include <stdio.h>
+	//printf ("\nThere is a problem with a bond over simbox\n",n);
+	continue;
+   	} else if (x[i1][0] > (domain->boxhi[0]-cutoff) && (domain->xperiodic == 0)) {
+	bondlist[n][3] = 1;
+	//#include <stdio.h>
+	//printf ("\nThere is a problem with a bond over simbox\n",n);
+	continue;
+	} else if (x[i1][1] < (domain->boxlo[1]+cutoff) && (domain->yperiodic == 0)) {
+	bondlist[n][3] = 1;
+	//#include <stdio.h>
+	//printf ("\nThere is a problem with a bond over simbox\n",n);
+	continue;
+	} else if (x[i1][1] > (domain->boxhi[1]-cutoff) && (domain->yperiodic == 0)) {
+	bondlist[n][3] = 1;
+	//#include <stdio.h>
+	//printf ("\nThere is a problem with a bond over simbox\n",n);
+	continue;
+	} else if (x[i1][2] < (domain->boxlo[2]+cutoff) && (domain->zperiodic == 0)) {
+	bondlist[n][3] = 1;
+	#include <stdio.h>
+	printf ("\nThere is a problem with a bond over simbox\n",n);
+	continue;
+	} else if (x[i1][2] > (domain->boxhi[2]-cutoff) && (domain->zperiodic == 0)) {
+	bondlist[n][3] = 1;
+	#include <stdio.h>
+	printf ("\nThere is a problem with a bond over simbox\n",n);
+	continue;
+	}
+
+	if ( x[i2][0] < (domain->boxlo[0]+cutoff) && (domain->xperiodic == 0)) {
+	bondlist[n][3] = 1;
+	//#include <stdio.h>
+	//printf ("\nThere is a problem with a bond over simbox\n",n);
+	continue;
+	} else if (x[i2][0] > (domain->boxhi[0]-cutoff) && (domain->xperiodic == 0)) {
+	bondlist[n][3] = 1;
+	//#include <stdio.h>
+	//printf ("\nThere is a problem with a bond over simbox\n",n);
+	continue;
+	} else if (x[i2][1] < (domain->boxlo[1]+cutoff) && (domain->yperiodic == 0)) {
+	bondlist[n][3] = 1;
+	//#include <stdio.h>
+	//printf ("\nThere is a problem with a bond over simbox\n",n);
+	continue;
+	} else if (x[i2][1] > (domain->boxhi[1]-cutoff) && (domain->yperiodic == 0)) {
+	bondlist[n][3] = 1;
+	//#include <stdio.h>
+	//printf ("\nThere is a problem with a bond over simbox\n",n);
+	continue;
+	} else if (x[i2][2] < (domain->boxlo[2]+cutoff) && (domain->zperiodic == 0)) {
+	bondlist[n][3] = 1;
+	#include <stdio.h>
+	printf ("\nThere is a problem with a bond over simbox\n",n);
+	continue;
+	} else if (x[i2][2] > (domain->boxhi[2]-cutoff) && (domain->zperiodic == 0)) {
+	bondlist[n][3] = 1;
+	#include <stdio.h>
+	printf ("\nThere is a problem with a bond over simbox\n",n);
+	continue;
+	}
 
     type = bondlist[n][2]; // Get current bond type properties      
 
     rin = ri[type]*fmin(radius[i1],radius[i2]); 
-    rout= ro[type]*fmin(radius[i1],radius[i2]);
+     //Schimanek Added for proper bond radius calculus 
+    rout=radius[i1]+radius[i2];
+    rout=ro[type]/rout;
+    rout=radius[i1]*radius[i2]*rout;
 
     A = M_PI * (rout*rout - rin*rin); // Bond Area
     J = 0.5*M_PI*(rout*rout*rout*rout - rin*rin*rin*rin);
@@ -774,9 +803,19 @@ void BondGran::compute(int eflag, int vflag)
             if(toohot)fprintf(screen, "   it was too hot\n");
             if(nstress)fprintf(screen,"   it was nstress\n");
             if(tstress)fprintf(screen,"   it was tstress\n");
-            
-            fprintf(screen,"   sigma_break == %e\n      mag_force == %e\n",sigma_break[type],(nforce_mag/A + 2.*ttorque_mag/J*(rout-rin)));
+
+	    fprintf(screen,"   sigma_break == %e\n      mag_force == %e\n",sigma_break[type],(nforce_mag/A + 2.*ttorque_mag/J*(rout-rin)));
             fprintf(screen,"     tau_break == %e\n      mag_force == %e\n",tau_break[type]  ,(tforce_mag/A +    ntorque_mag/J*(rout-rin)));
+            fprintf(stdout,"   sigma_break == %e\n      mag_force == %e\n",sigma_break[type],(nforce_mag/A + 2.*ttorque_mag/J*(rout-rin)));
+            fprintf(stdout,"     tau_break == %e\n      mag_force == %e\n",tau_break[type]  ,(tforce_mag/A +    ntorque_mag/J*(rout-rin)));
+
+  	    #include <stdio.h>
+	    FILE * pFile;
+            pFile = fopen("computeBondIfNstress.txt","w");
+            fprintf(pFile,"   sigma_break == %e\n      mag_force == %e\n",sigma_break[type],(nforce_mag/A + 2.*ttorque_mag/J*(rout-rin)));
+            fprintf(pFile,"     tau_break == %e\n      mag_force == %e\n",tau_break[type]  ,(tforce_mag/A +    ntorque_mag/J*(rout-rin)));
+            fclose (pFile);
+	
         }
     }
 
@@ -1054,10 +1093,41 @@ void BondGran::read_restart(FILE *fp)
 double BondGran::single(int type, double rsq, int i, int j,
                           double &fforce)
 {
-  error->all(FLERR,"Bond granular does not support this feature");
+
+  //Schimanek: Added for normal force and pseudo bond energy calculation
+  
+  double *radius = atom->radius;	
+  double rin,rout;	
+
+  rin = ri[type]*fmin(radius[i],radius[j]); 
+  rout=radius[i]+radius[i];
+  rout=ro[type]/rout;
+  rout=radius[i]*radius[i]*rout;
+
+  double A;
+  A = M_PI * (rout*rout - rin*rin); // Bond Area
+  double bondLength;
+  double **bondhistlist = neighbor->bondhistlist;
+  bondLength = fabs(bondhistlist[0][12]);
+  double Kn = Sn[type]*A/bondLength;
+  double r = sqrt(rsq);
+  double rinv = 1./r;
+  double sndt = Kn * (r-bondLength)*rinv;
+  double **x = atom->x;
+  double delx,dely,delz;
+
+  delx = x[i][0] - x[j][0]; // x-directional seperation
+  dely = x[i][1] - x[j][1]; // y-directional seperation
+  delz = x[i][2] - x[j][2]; // z-directional seperation 
+
+  Kn = sqrt(sndt*delx*sndt*delx+sndt*dely*sndt*dely+sndt*delz*sndt*delz);
+
+  return Kn;	
+
+  //error->all(FLERR,"Bond granular does not support this feature");
   /*double r = sqrt(rsq);
   double dr = r - r0[type];
   double rk = k[type] * dr;
   return rk*dr;*/
-  return 0.;
+  //return 0.;
 }
