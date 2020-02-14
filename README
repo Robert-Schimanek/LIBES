@@ -1,11 +1,15 @@
 This package contains a user-created expansion to LIGGGHTS-PUBLIC.
-Specifically, this adds flexible stiff fibers to LIGGGHTS, like wheat
-straw, plastic straws, grass, and others. You will find examples on
+Specifically, this ... to LIGGGHTS, like wheat
+... and others. You will find examples on
 how to use this package in examples/BondPackage. This is an updated
 version of the bond package first completed by richti83 for LIGGGHTS
-3.3 (https://github.com/richti83/LIGGGHTS-WITH-BONDS). If you find
-this work helpful to you, please also reference the following paper,
+3.3 (https://github.com/richti83/LIGGGHTS-WITH-BONDS) and further 
+enahnced by schrummy14 for LIGGGHTS 3.8 
+(https://schrummy14/LIGGGHTS_Flexible_Fibers). If you find
+this work helpful to you, please also reference the following papers,
 along with the LIGGGHTS paper.
+
+"..."
 
 "Schramm, M., Tekeste, M. Z., Plouffe, C., & Harby, D. (2019).
 Estimating bond damping and bond Young's modulus for a flexible wheat
