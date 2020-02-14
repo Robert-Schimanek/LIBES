@@ -412,6 +412,7 @@ void FixAdapt::change_settings()
         int nlocal = atom->nlocal;
 
         if (mflag == 0) {
+	  printf("mflag=0");
           for (i = 0; i < nlocal; i++)
             if (mask[i] & groupbit)
             {
@@ -420,6 +421,7 @@ void FixAdapt::change_settings()
               radius[i] = 0.5*value;
             }
         } else {
+	  printf("mflag ungleich 0");
           for (i = 0; i < nlocal; i++)
             if (mask[i] & groupbit) {
               if (is_atomstyle) value = fppat->vector_atom[i];  
@@ -427,7 +429,8 @@ void FixAdapt::change_settings()
                                     radius[i]*radius[i]*radius[i]);
               if (scaleflag) value *= radius[i]*2.0;
               radius[i] = 0.5*value;
-              rmass[i] = 4.0*MY_PI/3.0 *
+              
+	      rmass[i] = 4.0*MY_PI/3.0 *
                 radius[i]*radius[i]*radius[i] * density;
             }
         }
