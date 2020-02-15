@@ -442,18 +442,26 @@ void FixAdapt::change_settings()
               if (is_atomstyle) value = fppat->vector_atom[i];  
 	      //Schimanek: Added for debugging
 	  #include <stdio.h>
-		    printf("Dichte wird ermittelt");    
+		    printf("Dichte wird ermittelt\n");    
               density = rmass[i] / (4.0*MY_PI/3.0 *
                                     radius[i]*radius[i]*radius[i]);
+	      //Schimanek: Added for debugging
+	  #include <stdio.h>
+		    printf("Dichte des Teilchens beträgt %f \n",density);    
+		    
               if (scaleflag) value *= radius[i]*2.0;
 	     //Schimanek: Added for debugging
 	  #include <stdio.h>
-		    printf("Radius wird geschrieben");    
+		    printf("Radius wird geschrieben\n");    
                   
               radius[i] = 0.5*value;
+		    
+		      #include <stdio.h>
+		    printf("Neuer Radius des Teilchens beträgt %f \n",radius[i]);    
+	
               //Schimanek: Added for debugging
 	  #include <stdio.h>
-		    printf("Masse wird geschrieben");
+		    printf("Masse wird geschrieben\n");
 	      rmass[i] = 4.0*MY_PI/3.0 *
                 radius[i]*radius[i]*radius[i] * density;
             }
@@ -467,12 +475,15 @@ void FixAdapt::change_settings()
       }
     }
   }
-
+ #include <stdio.h>
+ printf("modify->addstep_compute(update->ntimestep + nevery);\n");    
   modify->addstep_compute(update->ntimestep + nevery);
 
   // re-initialize pair styles if any PAIR settings were changed
   // this resets other coeffs that may depend on changed values,
   // and also offset and tail corrections
+#include <stdio.h>
+ printf("if (anypair) force->pair->reinit(); anypair is %i ",anypair);    
 
   if (anypair) force->pair->reinit();
 }
