@@ -483,7 +483,7 @@ void FixAdapt::change_settings()
   // this resets other coeffs that may depend on changed values,
   // and also offset and tail corrections
 #include <stdio.h>
- printf("if (anypair) force->pair->reinit(); anypair is %i ",anypair);    
+ printf("if (anypair) force->pair->reinit(); anypair is %i \n",anypair);    
 
   if (anypair) force->pair->reinit();
 }
