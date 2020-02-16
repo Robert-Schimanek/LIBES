@@ -1235,8 +1235,8 @@ void Input::bond_coeff()
     error->all(FLERR,"Bond_coeff command before simulation box is defined");
   if (force->bond == NULL)
     error->all(FLERR,"Bond_coeff command before bond_style is defined");
-  if (atom->avec->bonds_allow == 0)
-    error->all(FLERR,"Bond_coeff command when no bonds allowed");
+  if (atom->avec->bonds_allow == 0) atom->avec->bonds_allow = 1;
+    //Added for debugging error->all(FLERR,"Bond_coeff command when no bonds allowed");
   force->bond->coeff(narg,arg);
 }
 
