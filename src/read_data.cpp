@@ -206,8 +206,8 @@ void ReadData::command(int narg, char **arg)
     MPI_Bcast(&atom->improper_per_atom,1,MPI_INT,0,world);
 
   } else
-    atom->bond_per_atom = atom->angle_per_atom =
-      atom->dihedral_per_atom = atom->improper_per_atom = 0;
+  //Robert Schimanek deleted for non bond read  atom->bond_per_atom = 0;
+      atom->angle_per_atom = atom->dihedral_per_atom = atom->improper_per_atom = 0;
 
   // read header info
 
