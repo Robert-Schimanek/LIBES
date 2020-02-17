@@ -679,6 +679,12 @@ void Atom::data_atoms(int n, char *buf)
   int nwords = count_words(buf);
   *next = '\n';
 
+  //Robert Schimanek: Added for bond support
+  #include <stdio.h> 
+  fprinf("nwords is %u \n",nwords);
+  fprinf("vec->size_data_atom is %u \n",vec->size_data_atom);
+  fprinf("vec->size_data_atom is %u \n",vec->size_data_atom + 3);
+
   if (nwords != avec->size_data_atom && nwords != avec->size_data_atom + 3)
     error->all(FLERR,"Incorrect atom format in data file");
 
