@@ -780,10 +780,10 @@ void Atom::data_atoms(int n, char *buf)
 
 
   //Robert Schimanek: Added for bond support
-  #include <stdio.h> 
-  printf("xdata[0] is %f \n", xdata[0]);
-  printf("xdata[1] is %f \n", xdata[1]);
-  printf("xdata[2] is %f \n", xdata[2]);
+  //#include <stdio.h> 
+  //printf("xdata[0] is %f \n", xdata[0]);
+  //printf("xdata[1] is %f \n", xdata[1]);
+  //printf("xdata[2] is %f \n", xdata[2]);
 
     domain->remap(xdata,imagedata);
     if (triclinic) {
