@@ -736,7 +736,10 @@ void Atom::data_atoms(int n, char *buf)
   int iptr = 0;
   int imageflag = 0;
   if (nwords > avec->size_data_atom) imageflag = 1;
-  if (nwords == 10) imageflag = 0; //Robert Schimanek: Added for granular import
+  if (nwords == 10){
+	imageflag = 0; //Robert Schimanek: Added for granular import
+  	xptr = 5; //Robert Schimanek: Added for gran to hybrid bond/gran import}
+
   if (imageflag) iptr = nwords - 3;
 
   //Robert Schimanek: Added for bond support
