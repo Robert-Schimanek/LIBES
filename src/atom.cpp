@@ -685,8 +685,8 @@ void Atom::data_atoms(int n, char *buf)
   printf("vec->size_data_atom is %u \n",avec->size_data_atom);
   printf("vec->size_data_atom is %u \n",avec->size_data_atom + 3);
 
-  if (nwords != avec->size_data_atom && nwords != avec->size_data_atom + 3)
-    error->all(FLERR,"Incorrect atom format in data file");
+  //if (nwords != avec->size_data_atom && nwords != avec->size_data_atom + 3)
+  //Robert Schimanek: Deleted for non bond input support  error->all(FLERR,"Incorrect atom format in data file");
 
   char **values = new char*[nwords];
 
