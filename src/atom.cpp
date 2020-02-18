@@ -735,8 +735,14 @@ void Atom::data_atoms(int n, char *buf)
   int iptr = 0;
   int imageflag = 0;
   if (nwords > avec->size_data_atom) imageflag = 1;
+  if (nwords == 10) imageflag = 0; //Robert Schimanek: Added for granular import
   if (imageflag) iptr = nwords - 3;
 
+  //Robert Schimanek: Added for bond support
+  #include <stdio.h> 
+  printf("xptr is %u \n", xptr);
+  printf("iptr is %u \n", iptr);
+  
   // loop over lines of atom data
   // tokenize the line into values
   // extract xyz coords and image flags
