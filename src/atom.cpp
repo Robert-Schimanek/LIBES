@@ -768,9 +768,18 @@ void Atom::data_atoms(int n, char *buf)
     else imagedata = ((tagint) IMGMAX << IMG2BITS) |
            ((tagint) IMGMAX << IMGBITS) | IMGMAX;
 
+
     xdata[0] = atof(values[xptr]);
     xdata[1] = atof(values[xptr+1]);
     xdata[2] = atof(values[xptr+2]);
+
+
+  //Robert Schimanek: Added for bond support
+  #include <stdio.h> 
+  printf("xdata[0] is %u \n", xdata[0]);
+  printf("xdata[1] is %u \n", xdata[1]);
+  printf("xdata[2] is %u \n", xdata[2]);
+
     domain->remap(xdata,imagedata);
     if (triclinic) {
       domain->x2lamda(xdata,lamda);
