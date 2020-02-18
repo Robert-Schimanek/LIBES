@@ -681,6 +681,7 @@ void Atom::data_atoms(int n, char *buf)
 
   //Robert Schimanek: Added for bond support
   #include <stdio.h> 
+  printf("n is %u",n);
   printf("nwords is %u \n",nwords);
   printf("vec->size_data_atom is %u \n",avec->size_data_atom);
   printf("vec->size_data_atom is %u \n",avec->size_data_atom + 3);
