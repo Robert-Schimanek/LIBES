@@ -928,6 +928,11 @@ void AtomVecHybrid::data_atom(double *coord, tagint imagetmp, char **values)
   // each sub-style parses sub-style specific values
 
   int m = 5;
+
+  //Robert Schimanek: Added for bond support
+  #include <stdio.h>
+  if (atom->avec->bonds_allow = 1) printf("sub style m is %u \n", m);
+
   for (int k = 0; k < nstyles; k++)
     m += styles[k]->data_atom_hybrid(nlocal,&values[m]);
 
