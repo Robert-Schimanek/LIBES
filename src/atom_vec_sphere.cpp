@@ -1110,7 +1110,7 @@ int AtomVecSphere::data_atom_hybrid(int nlocal, char **values)
   
   //Robert Schimanek: Added for debugging
   #include <stdio.h>
-  printf("radius[nlocal] is %f \n", radius[nlocal]);	
+  printf("Diameter[nlocal] is %f \n", radius[nlocal] * 2.);	
 
   //if (radius[nlocal] < 0.0)
   //  error->one(FLERR,"Invalid radius in Atoms section of data file");
