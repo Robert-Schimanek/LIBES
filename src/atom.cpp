@@ -682,9 +682,8 @@ void Atom::data_atoms(int n, char *buf)
   //Robert Schimanek: Changed for non-bond input support to bond/gran files
 
   //if (nwords != avec->size_data_atom && nwords != avec->size_data_atom + 3)
-	if (vec->size_data_atom == 8 && nwords == 10)
-	else {
-	error->all(FLERR,"Incorrect atom format in data file");
+	if (avec->size_data_atom != 8 && nwords != 10)error->all(FLERR,"Incorrect atom format in data file");
+	else {	
 	}
   
   char **values = new char*[nwords];
