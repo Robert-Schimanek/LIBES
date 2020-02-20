@@ -937,7 +937,7 @@ void AtomVecHybrid::data_atom(double *coord, tagint imagetmp, char **values)
 	printf("sub style m is %u \n", m);
 	printf("length of values is %u \n", lengthValues);
 	printf("vec->size_data_atom is %u \n", atom->avec->size_data_atom);
-	m=2
+	m=2;
 	}
 
   for (int k = 0; k < nstyles; k++)
