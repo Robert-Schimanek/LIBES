@@ -929,16 +929,9 @@ void AtomVecHybrid::data_atom(double *coord, tagint imagetmp, char **values)
 
   int m = 5;
 
-  //Robert Schimanek: Added for bond support
-
+  //Robert Schimanek: Added for non-bond input to bond/gran read data
   int lengthValues = sizeof(values);
-  #include <stdio.h>
-  if (atom->avec->bonds_allow == 1){
-	printf("sub style m is %u \n", m);
-	printf("length of values is %u \n", lengthValues);
-	printf("vec->size_data_atom is %u \n", atom->avec->size_data_atom);
-	m=2;
-	}
+  if (atom->avec->bonds_allow == 1 && lengthValues == 8) m=2; 
 
   for (int k = 0; k < nstyles; k++)
     m += styles[k]->data_atom_hybrid(nlocal,&values[m]);
