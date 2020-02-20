@@ -1199,11 +1199,14 @@ void ReadData::scan(int &bond_per_atom, int &angle_per_atom,
   // customize for new sections
 
   int natoms = static_cast<int> (atom->natoms);
-  //Robert Schimanek deleted for non bond read bond_per_atom=0;
-  fprintf(screen,"bond_per_atom is %u \n",bond_per_atom);
+    
+  read bond_per_atom = angle_per_atom = dihedral_per_atom = improper_per_atom = 0;
+  
+  //Robert Schimanek: Added for read of non-bond data to bond/gran atom vec
+  if (atom->avec->bonds_allow == 1){
+	read bond_per_atom = 1;
+	}
 
-
-  angle_per_atom = dihedral_per_atom = improper_per_atom = 0;
   int ellipsoid_flag = 0;
   int line_flag = 0;
 
