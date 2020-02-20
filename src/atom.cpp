@@ -679,16 +679,14 @@ void Atom::data_atoms(int n, char *buf)
   int nwords = count_words(buf);
   *next = '\n';
 
-  //Robert Schimanek: Added for bond support
-  #include <stdio.h> 
-  printf("n is %u",n);
-  printf("nwords is %u \n",nwords);
-  printf("vec->size_data_atom is %u \n",avec->size_data_atom);
-  printf("vec->size_data_atom is %u \n",avec->size_data_atom + 3);
+  //Robert Schimanek: Changed for non-bond input support to bond/gran files
 
   //if (nwords != avec->size_data_atom && nwords != avec->size_data_atom + 3)
-  //Robert Schimanek: Deleted for non bond input support  error->all(FLERR,"Incorrect atom format in data file");
-
+	if (vec->size_data_atom == 8 && nwords == 10)
+	else {
+	error->all(FLERR,"Incorrect atom format in data file");
+	}
+  
   char **values = new char*[nwords];
 
   // set bounds for my proc
