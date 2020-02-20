@@ -732,17 +732,14 @@ void Atom::data_atoms(int n, char *buf)
   int iptr = 0;
   int imageflag = 0;
   if (nwords > avec->size_data_atom) imageflag = 1;
-  if (nwords == 10){
-	imageflag = 0; //Robert Schimanek: Added for granular import
-  	xptr = 4; //Robert Schimanek: Added for gran to hybrid bond/gran import
+
+  //Robert Schimanek: Added for gran to hybrid bond/gran import
+  if (avec->size_data_atom == 8 && nwords == 10){
+	imageflag = 0;
+  	xptr = 4;
 	}
 
   if (imageflag) iptr = nwords - 3;
-
-  //Robert Schimanek: Added for bond support
-  #include <stdio.h> 
-  printf("xptr is %u \n", xptr);
-  printf("iptr is %u \n", iptr);
   
   // loop over lines of atom data
   // tokenize the line into values
@@ -769,17 +766,9 @@ void Atom::data_atoms(int n, char *buf)
     else imagedata = ((tagint) IMGMAX << IMG2BITS) |
            ((tagint) IMGMAX << IMGBITS) | IMGMAX;
 
-
     xdata[0] = atof(values[xptr]);
     xdata[1] = atof(values[xptr+1]);
     xdata[2] = atof(values[xptr+2]);
-
-
-  //Robert Schimanek: Added for bond support
-  //#include <stdio.h> 
-  //printf("xdata[0] is %f \n", xdata[0]);
-  //printf("xdata[1] is %f \n", xdata[1]);
-  //printf("xdata[2] is %f \n", xdata[2]);
 
     domain->remap(xdata,imagedata);
     if (triclinic) {
