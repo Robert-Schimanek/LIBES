@@ -1107,12 +1107,22 @@ void AtomVecSphere::data_atom(double *coord, tagint imagetmp, char **values)
 int AtomVecSphere::data_atom_hybrid(int nlocal, char **values)
 {
   radius[nlocal] = 0.5 * atof(values[0]);
-  if (radius[nlocal] < 0.0)
-    error->one(FLERR,"Invalid radius in Atoms section of data file");
+  
+  //Robert Schimanek: Added for debugging
+  #include <stdio.h>
+  printf("radius[nlocal] is %f \n", radius[nlocal]);	
+
+  //if (radius[nlocal] < 0.0)
+  //  error->one(FLERR,"Invalid radius in Atoms section of data file");
 
   density[nlocal] = atof(values[1]);
-  if (density[nlocal] <= 0.0)
-    error->one(FLERR,"Invalid density in Atoms section of data file");
+  //if (density[nlocal] <= 0.0)
+  //  error->one(FLERR,"Invalid density in Atoms section of data file");
+  
+  //Robert Schimanek: Added for debugging
+  #include <stdio.h>
+  printf("density[nlocal] is %f \n", density[nlocal]);	
+
 
   if (radius[nlocal] == 0.0) rmass[nlocal] = density[nlocal];
   else
