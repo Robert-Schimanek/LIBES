@@ -435,20 +435,23 @@ void BondGran::compute(int eflag, int vflag)
     bondhistlist[n][ 9] = f_norm*vel_temp[0];
     bondhistlist[n][10] = f_norm*vel_temp[1];
     bondhistlist[n][11] = f_norm*vel_temp[2];
+    
+    //Robert Schimanek: Added alpha vor visco elastic dampening of the bonds
+    double alpha = 0.95;    
 
     //increment normal and tangential force and torque 
     bondhistlist[n][ 0] = fn_bond[0];
     bondhistlist[n][ 1] = fn_bond[1];
     bondhistlist[n][ 2] = fn_bond[2];
-    bondhistlist[n][ 3] = bondhistlist[n][ 3] +  dtforce[0] ;
-    bondhistlist[n][ 4] = bondhistlist[n][ 4] +  dtforce[1] ;
-    bondhistlist[n][ 5] = bondhistlist[n][ 5] +  dtforce[2] ;
-    bondhistlist[n][ 6] = bondhistlist[n][ 6] + dntorque[0] ;
-    bondhistlist[n][ 7] = bondhistlist[n][ 7] + dntorque[1] ;
-    bondhistlist[n][ 8] = bondhistlist[n][ 8] + dntorque[2] ;
-    bondhistlist[n][ 9] = bondhistlist[n][ 9] + dttorque[0] ;
-    bondhistlist[n][10] = bondhistlist[n][10] + dttorque[1] ;
-    bondhistlist[n][11] = bondhistlist[n][11] + dttorque[2] ;
+    bondhistlist[n][ 3] = alpha * bondhistlist[n][ 3] +  dtforce[0] ;
+    bondhistlist[n][ 4] = alpha * bondhistlist[n][ 4] +  dtforce[1] ;
+    bondhistlist[n][ 5] = alpha * bondhistlist[n][ 5] +  dtforce[2] ;
+    bondhistlist[n][ 6] = alpha * bondhistlist[n][ 6] + dntorque[0] ;
+    bondhistlist[n][ 7] = alpha * bondhistlist[n][ 7] + dntorque[1] ;
+    bondhistlist[n][ 8] = alpha * bondhistlist[n][ 8] + dntorque[2] ;
+    bondhistlist[n][ 9] = alpha * bondhistlist[n][ 9] + dttorque[0] ;
+    bondhistlist[n][10] = alpha * bondhistlist[n][10] + dttorque[1] ;
+    bondhistlist[n][11] = alpha * bondhistlist[n][11] + dttorque[2] ;
 
     double tot_force_x = bondhistlist[n][ 0] + bondhistlist[n][ 3];
     double tot_force_y = bondhistlist[n][ 1] + bondhistlist[n][ 4];
