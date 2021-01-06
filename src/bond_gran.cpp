@@ -440,9 +440,9 @@ void BondGran::compute(int eflag, int vflag)
     double alpha = 0.95;    
 
     //increment normal and tangential force and torque 
-    bondhistlist[n][ 0] = fn_bond[0];
-    bondhistlist[n][ 1] = fn_bond[1];
-    bondhistlist[n][ 2] = fn_bond[2];
+    bondhistlist[n][ 0] = alpha * fn_bond[0];
+    bondhistlist[n][ 1] = alpha * fn_bond[1];
+    bondhistlist[n][ 2] = alpha * fn_bond[2];
     bondhistlist[n][ 3] = alpha * bondhistlist[n][ 3] +  dtforce[0] ;
     bondhistlist[n][ 4] = alpha * bondhistlist[n][ 4] +  dtforce[1] ;
     bondhistlist[n][ 5] = alpha * bondhistlist[n][ 5] +  dtforce[2] ;
